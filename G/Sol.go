@@ -1,12 +1,12 @@
 package main
 //
-// author: Mouad Nacirir
+// author: Mouad Naciri
 //
 import (
-	"bufio"
-	"fmt"
-	"os"
-  "sort"
+    "bufio"
+    "fmt"
+    "os"
+    "sort"
 )
 
 var reader *bufio.Reader = bufio.NewReader(os.Stdin)
