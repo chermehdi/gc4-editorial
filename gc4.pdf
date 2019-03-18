@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="ccid" content="0ac8b49212d77e594979c674727e46aa"/>
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/common.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/messagebox.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.autocomplete.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.drafts.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/tablesorter.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/header.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css?ccid=0ac8b49212d77e594979c674727e46aa">
+    <title>Login Form - Polygon</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/apple-touch-icon.png?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="icon" type="image/png" href="/image/favicon-32x32.png?ccid=0ac8b49212d77e594979c674727e46aa" sizes="32x32">
+    <link rel="icon" type="image/png" href="/image/favicon-16x16.png?ccid=0ac8b49212d77e594979c674727e46aa" sizes="16x16">
+    <link rel="manifest" href="/image/manifest.json?ccid=0ac8b49212d77e594979c674727e46aa">
+    <link rel="mask-icon" href="/image/safari-pinned-tab.svg?ccid=0ac8b49212d77e594979c674727e46aa" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body ><span style='display:none;' class='ccid' data-value='0ac8b49212d77e594979c674727e46aa'>&nbsp;</span>
+<span style="display:none" id="session"></span>
+<span style="display:none" id="problemId"></span>
+<script src="/js/jquery-1.8.3.js" language="javascript" type="text/javascript"></script>
+<script src="/js/jquery.drafts.js" language="javascript" type="text/javascript"></script>
+<script src="/js/polygon.js" language="javascript" type="text/javascript"></script>
+<script src="/js/prettify/run_prettify.js"></script>
+<script src="/js/jquery.tablesorter.min.js" language="javascript" type="text/javascript"></script>
+<script type="text/javascript" language="JavaScript" src="/js/jquery.autocomplete.pack.js"></script>
+<script type="text/javascript" src="/js/sjcl.js"></script>
+<div class="button-up" style="display: none; z-index: 1000; opacity: 0.7; width: 50px; height:100%; position: fixed; left: 0; top: 0; cursor: pointer; text-align: center; line-height: 35px; color: #d3dbe4; font-weight: bold; font-size: 30px;">
+    <i class="fa fa-arrow-circle-up"></i>
+</div>
+<script type="text/javascript">
+    window.onbeforeunload = "Are you sure you want to leave polygon?";
+
+    window.getCcid = function() {
+        var meta = $("meta[name='ccid']").attr("content");
+        if (meta && meta.length == 32) {
+            return meta;
+        }
+
+        var span = $("span.ccid").attr("data-value");
+        if (span && span.length == 32) {
+            return span;
+        }
+
+        return undefined;
+    };
+
+    window.setDocumentLocation = function(link) {
+        var ccid = getCcid();
+
+        if (ccid && link.indexOf("ccid=") < 0 && link.indexOf("#") < 0) {
+            if (link.indexOf("?") < 0) {
+                link += "?ccid=" + ccid;
+            } else {
+                link += "&ccid=" + ccid;
+            }
+        }
+
+        document.location.href = link;
+    };
+
+    $(function () {
+        $.ajaxPrefilter(function(options, originalOptions, xhr) {
+            var ccid = getCcid();
+
+            if (ccid) {
+                var data = originalOptions.data;
+                if (originalOptions.data !== undefined) {
+                    if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                        data = $.deparam(originalOptions.data);
+                    }
+                } else {
+                    data = {};
+                }
+                options.data = $.param($.extend(data, { ccid: ccid }));
+            }
+        });
+
+        $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+            'ccid': getCcid()
+        }});
+
+        var sessionText = $("#session").text();
+
+        if (sessionText.length > 0) {
+            $("a").each(function () {
+                if ($(this).hasClass("outbound-link")) {
+                    return;
+                }
+
+                var href = $(this).attr("href");
+
+                if (href.indexOf("session=") < 0 && href.indexOf("#") < 0 && !$(this).hasClass('noSessionLink')) {
+                    if (href.indexOf("?") < 0) {
+                        href += "?session=" + sessionText;
+                    } else {
+                        href += "&session=" + sessionText;
+                    }
+                }
+
+                $(this).attr("href", href);
+            });
+
+            $("form").submit(function () {
+                $(this).append("<input type=\"hidden\" name=\"session\" value=\"" + sessionText + "\"/>");
+            });
+        }
+
+        $(".outbound-link").each(function() {
+            $(this).attr("href", $(this).attr("data-href-outbound"));
+        });
+
+        $(".title-clickable").css("color", "gray").css("cursor", "pointer").click(function() {
+            alert($(this).attr("title"));
+        });
+    });
+
+    window.popup = function(title, width, height, onClose) {
+        width = width || "50%";
+        height = height || "23em";
+        $("body").append("<div class='popup' style='width:" + width + ";height:" + height + ";'></div>");
+        var result = $("body div.popup:last");
+        result.css("top", ($(window).height() - result.height()) / 3 + 'px');
+        result.css("left", ($(window).width() - result.width()) / 2 + 'px');
+        var close = $("<div class=\"popup-close\"><img src=\"" + "https://polygon.codeforces.com" + "/image/close-10x10.png\"/></div>")
+        close.find("img").css("cursor", "pointer").attr("title", "Close popup").click(function() {
+            result.remove();
+            if (onClose != undefined) {
+                onClose();
+            }
+        });
+        result.append(close);
+        result.append("<div class='title'>" + title + "</div>");
+
+        result.keyup(function(event) {
+            if (event.which == 27) {
+                result.remove();
+                if (onClose != undefined) {
+                    onClose();
+                }
+            }
+        });
+        return result;
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($(document).width() < 1600) {
+            $('.button-up').css('width', '18px').css('line-height', '30px').css('font-size', '18px');
+        }
+
+        if ($(document).width() >= 1300) {
+            $ (window).scroll(function () {
+                if ($ (this).scrollTop () > 100) {
+                    $ ('.button-up').fadeIn();
+                } else {
+                    $ ('.button-up').fadeOut();
+                }
+            });
+
+            $('.button-up').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 500);
+                return false;
+            }).hover(function () {
+                $(this).animate({
+                    'opacity':'1'
+                }).css({'background-color':'#e7ebf0','color':'#6a86a4'});
+            }, function () {
+                $(this).animate({
+                    'opacity':'0.7'
+                }).css({'background':'none','color':'#d3dbe4'});;
+            });
+        }
+    });
+</script>
+
+    <div style="max-width:1400px;margin:0 auto;">
+<script type="text/javascript">
+    $(function() {
+        setTimeout(function() {
+            $("#top-messagebox").hide(500);
+        }, 10000);
+    });
+</script>
+
+<div id="header">
+    <div class="info">
+        <table>
+            <tr>
+                <td>
+                    <img src="/image/polygon-logo.PNG" alt="" style="position:relative;top:0.5em;left:3px;"/>
+                    <div class="mission">Professional way to prepare programming contest problem</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="top-menu">
+            <strong>Mehdi Cheracher</strong> |
+            <a href="/settings?ccid=0ac8b49212d77e594979c674727e46aa">Settings</a> |
+            <a href="/logout?ccid=0ac8b49212d77e594979c674727e46aa">Logout</a> |
+            <a href="static/polygon.rtf?ccid=0ac8b49212d77e594979c674727e46aa">Help</a>
+    </div>
+    <br style="clear: both;"/>
+</div>
+<div class="color-box blue-box" style="">
+    <div class="t t1">&nbsp;</div>
+    <div class="t t2">&nbsp;</div>
+    <div class="t t3">&nbsp;</div>
+    <div class="t t4">&nbsp;</div>
+    <div class="text">
+<div class="page-name">
+Login Form
+</div>
+<div class="menu">
+            <span>
+                <a href="/register?ccid=0ac8b49212d77e594979c674727e46aa" class="noSessionLink">Register</a>
+            </span>
+            <span class="active">
+                <a href="/login?ccid=0ac8b49212d77e594979c674727e46aa" class="noSessionLink">Login</a>
+            </span>
+            <span>
+                <a href="/?ccid=0ac8b49212d77e594979c674727e46aa" class="noSessionLink">Index</a>
+            </span>
+</div>
+<br style="clear: both;"/>
+    </div>
+</div>
+<div style="padding:4em;padding-bottom:10em;">
+<form action="" method="post">
+    <input type="hidden" name="submitted" value="true"/>
+    <table style="margin-left: auto; margin-right:auto;">
+        <caption style="font-size: 125%;text-align:center;padding:0.25em;">Login Form</caption>
+        <tr>
+            <td style="width: 8em;text-align:right;padding:0.5em;">
+                Login/Email:
+            </td>
+            <td>
+                <input name="login" style="width:220px;" value=""/>
+            </td>
+        </tr>
+        <tr>
+        <td style="width: 8em;text-align:right;padding:0.5em;">
+                Password:
+            </td>
+            <td>
+                <input type="password" name="password" style="width:220px;"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td style="text-align:left;">
+                <input type="checkbox" id="attachSessionToIp" name="attachSessionToIp" checked value="on"/>
+                <label for="attachSessionToIp"><small>Attach session to IP address (more secure)</small></label>
+            </td>
+        </tr>
+        <tr><td colspan="2" style="text-align:right;padding-top:1em;">
+            <div style="margin: 0 auto; text-align:center;">
+                <input type="submit" name="submit" value="Login" style="margin:0.5em;width:90px;"/>
+            </div>
+            <a href="remind?ccid=0ac8b49212d77e594979c674727e46aa">Forgot password?</a>
+        </td></tr>
+    </table>
+<input type='hidden' name='ccid' value='0ac8b49212d77e594979c674727e46aa'/></form>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $("input[name=login]").focus();
+    });
+</script>
+<div class="footer">
+    <div>Polygon 0.2-r872 (c) Copyright 2009-2019 Mike Mirzayanov</div>
+    <div>Platform for creating programming competition problems</div>
+    <div>Judging on: Intel(R) Core(TM) i3-8100 CPU @ 3.60GHz</div>
+    <div>Execution time: 0 ms.</div>
+</div>
+    </div>
+</body>
+</html>
