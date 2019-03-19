@@ -1,5 +1,5 @@
 //
-// author: Azuz Erraoui
+// author: Abdelaziz EROUI
 //
 #include <bits/stdc++.h>
 

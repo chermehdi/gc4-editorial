@@ -1,5 +1,4 @@
-# author: Azuz Eraoui
-
+# author: Abdelaziz EROUI
 def solve(n):
     res = n
     i = 2

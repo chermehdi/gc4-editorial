@@ -1,5 +1,6 @@
 //
-// author : Azuz Eraoui
+// author : Abdelaziz EROUI
+// reviewer: Mouad Naciri
 //
 #include <bits/stdc++.h>
 
