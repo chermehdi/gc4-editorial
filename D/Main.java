@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * @author Azuz Eraoui
+ * @author Abdelaziz EROUI
  */
 public class Main {
 

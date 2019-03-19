@@ -13,7 +13,7 @@
  will come across 'Euler totient function` which is the direct answer to this problem . here is a [link](https://cp-algorithms.com/algebra/phi-function.html) explaining the concept .
 
 ## Problem B : Rotten Berries
-### Setter: Azuz ERRAOUI
+### Setter: [Abdelaziz EROUI]
 ### Difficulty: Medium
 
 - As the problem states you are given a 2D grid, with healthy and rotten berries, and the problem is to find out what is the number of healthy berries is going to be left after D days,
@@ -24,7 +24,7 @@
 - Note that some contestants tried to do a simulation of the process, by doing the transformation for all the given days . but that's not enough to solve the problem and it give a `TLE` verdict .
 
 ## Problem C : Unique Substring
-### Setter: Azuz ERRAOUI
+### Setter: [Abdelaziz EROUI]
 ### Difficulty: Easy
 
 - The problem asks that given a string `s` with lowercase english characters, remove all duplicate characters while keeping their order in the original string, let's call it string `s'`, `s'` should be the smallest lexicographicaly
@@ -34,7 +34,7 @@ i.e `occ[a[i]] > 1` then we remove it, and that way we grantee that the resultin
 - other approaches to solving this problem can be found in the setters solution .
 
 ## Problem D : Last digit
-### Setter: Azuz ERRAOUI
+### Setter: [Abdelaziz EROUI]
 ### Difficulty: Easy
 
 - This one is an easy one, the trick here is to observe that factorial 5! can be written as `5! = 1 * 2 * 3 * 4 * 5` or
@@ -42,28 +42,28 @@ i.e `occ[a[i]] > 1` then we remove it, and that way we grantee that the resultin
 `4` compute factorial and print the last digit, otherwise just print `0`.
 
 ## Problem E : Tree Puzzle
-### Setter: Mouad NACIRI
+### Setter: [Mouad NACIRI]
 ### Difficulty: Medium
 
 - This problem required to print the sum of the values of all nodes at even level from the root which is always `1`, the solution can be done by either `bfs` or `dfs`,
 starting from the root keep track of the current level and a global sum and only add those where the `level % 2 == 0` .
 
 ## Problem F : Stable zeroing
-### Setter: Azuz ERAOUI
+### Setter: [Abdelaziz EROUI]
 ### Difficulty: Easy
 
 - This problem is self explanatory, take a list when reading the input, if the element is none zero push it to the list or else ignore it, then print the list .
 - Note: some of the common mistakes with this problem is that it required strict formatting, so trailing spaces were not tolerated, and many contestants got a `WA` verdict
 
 ## Problem G : Azuz's Anagram
-### Setter: Mouad NACIRI
+### Setter: [Mouad NACIRI]
 ### Difficulty: Easy
 
 - This problem also is easy, you just need a function `bool is_anagram(string first, string second)` to test if two strings are anagrams,
 this can be done by various ways : (sorting both, counting occurences) and printing the result according to the statement .
 
 ## Problem H : Houda and Weird Auction
-### Setter: Mehdi CHERACHER
+### Setter: [Mehdi CHERACHER]
 ### Difficulty: Medium
 
 - To solve this problem, you need to extract the operations you need to get the answer for each day :
@@ -84,8 +84,8 @@ floyd warshall's algorithm, and let's pick the longest one .
 - Another approach if you don't know floyd's algorithm is just to do a bfs for every pair of nodes to determine the shortest distance between them, as the graph is small enough this solution will also pass.
 
 ## Problem J : Houda Playing Poker
-## Setter: Mehdi CHERACHER
-## Difficulty: Medium
+### Setter: [Mehdi CHERACHER]
+### Difficulty: Medium
 
 - The problem essentiely asks us to find the the subarray with the largest positive sum, if the input only contained positive values, the solution is the whole array .
 The twist here is that the values might be negative which impacts the optimal final answer. to answer this we will use `dynamic programming` using this recurrence :
@@ -96,3 +96,8 @@ The twist here is that the values might be negative which impacts the optimal fi
   )
 ```
 - This problem is quite classical, lookup `kadane's algorithm` for more info .
+
+
+[Abdelaziz EROUI]: https://github.com/Eroui
+[Mouad NACIRI]: https://github.com/mouadnaciri
+[Mehdi CHERACHER]: https://github.com/chermehdi
